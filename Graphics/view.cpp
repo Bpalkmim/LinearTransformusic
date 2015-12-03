@@ -4,11 +4,14 @@
 
 using namespace std;
 
+// Modo de criaçao de musica
 void createMode(void)
 {
 
 }
 
+// Usuario escolheu abir um arquivo texto com a musica dele (sequencia de inteiros
+// representando os intervalos em semitons)
 void openMusicalFile(void)
 {
 
@@ -19,8 +22,7 @@ void openMusicalFile(void)
 void closeApplication(void)
 {
 	char command;
-	cout << "Fechando a aplicacao. Tem certeza? [s/n]"
-	<< endl;
+	cout << "Fechando a aplicacao. Tem certeza? [s/n]\n" << endl;
 	cin >> command;
 
 	switch(command) {
@@ -39,7 +41,9 @@ void showMenu(void)
 	char userInput;
 
 	do {
-		cout << "\n\nBem-vindo ao LinearTransformusic!\n\n"
+		cout << "-----------------------------------------\n"
+		<< "--- Bem-vindo ao LinearTransformusic! ---\n"
+		<< "-----------------------------------------\n"
 		<< "Menu principal\n"
 		<< "Comandos:\n"
 		<< "c - Criar musica para salvar em um arquivo\n"
