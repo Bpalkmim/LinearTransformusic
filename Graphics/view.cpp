@@ -1,4 +1,6 @@
 #include "view.h"
+#include "../LinAlgebra/matrix.h"
+#include "../Music/music.h"
 #include <iostream>
 #include <stdlib.h>
 
@@ -7,15 +9,20 @@ using namespace std;
 // Modo de criaçao de musica
 void createMode(void)
 {
+	cout << "-> Modo de criacao\n"
+	<< endl;
 
+	// TODO COMPLETAR
 }
 
 // Usuario escolheu abir um arquivo texto com a musica dele (sequencia de inteiros
 // representando os intervalos em semitons)
 void openMusicalFile(void)
 {
+	cout << "-> Escreva o nome do arquivo a ser aberto.\n"
+	<< endl;
 
-
+	// TODO COMPLETAR
 }
 
 // Janela de fechamento da aplicaçao
