@@ -1,0 +1,30 @@
+Relatório do Trabalho de INF2034 - LinearTransformusic
+
+O tema escolhido foi o de representar intervalos entre notas musicais em 1, 2 ou 3 dimensões, e alternar entre eles com matrizes específicas de transformação, dependendo do temperamento escolhido (sendo que o temperamento somente importa para o caso de representação 3D). O projeto será uma aplicação que receberá um input do usuário representando a melodia (em uma dimensão) que ele quer que apareça. Daí, tendo selecionada a melodia, ele terá a opção de visualizá-la em duas dimensões (de modo análogo a uma partitura musical). Depois de ter isso pronto, há também a possibilidade de mostrar em três dimensões.
+
+O trabalho será desenvolvido em C++, utilizando-se da biblioteca Qt para a interface gráfica, e dividido nos seguintes módulos: LinAlgebra (responsável pelos utilitários genéricos de álgebra linear, como multiplicação de matrizes, por exemplo), Graphics (responsável pela interface gráfica, utilizando-se da biblioteca Qt) e Music (responsável pela representação das matrizes e dos tipos, e armazenamento da música de input do usuário para posterior transformação).
+
+
+O que foi feito (por módulos):
+
+LinAlgebra
+- Matrizes são parametrizadas, a fim de representar os tipos.
+- Implementada a multiplicação de matrizes, levando em conta o tamanho.
+
+Music
+- Construídas as matrizes constantes de transformação entre as representações dos intervalos.
+- Criado o array de armazenamento em uma dimensão do input do usuário.
+
+Graphics
+- Ainda não incluída a biblioteca Qt. É utilizada a linha de comando para a interface por enquanto.
+- Há um loop que recebe input do usuário e depois imprime na tela a entrada do usuário como uma matriz de uma dimensão.
+
+Também foi criado um módulo main.cpp que inicia a aplicação.
+
+Próximos passos:
+
+- Permitir leitura/escrita de/em arquivos.
+- Incrementar LinAlgebra para ficar completo com as funcionalidades necessárias.
+- Fazer as transformações no modulo Music.
+- Fazer Graphics utilizando Qt primeiramente para 1D->2D. Posteriormente incluir 3D.
+- Fazer soar a música de input do usuário (para tal será necessário também que o usuário indique a nota tônica a utilizar).
