@@ -6,23 +6,109 @@
 
 using namespace std;
 
+// Matriz a ser utilizada pelo modulo. Pode ser criada pelo usuario ou lida de um arquivo.
+Matrix<Input> * currentM;
+
+// Abre um arquivo com valores inteiros e cria uma matriz unidimensional considerando-os
+// os intervalos musicais
+Matrix<Input> * openFile(char * fileName) {
+
+	return NULL;
+}
+
+// Modo de inserçao de notas
+void insertMode(void) {
+
+}
+
+// Modo de visualizaçao de musica
+void visualizeMode(void) {
+
+}
+
+// Modo de salvamento de musica em um arquivo
+void saveMode(void) {
+
+}
+
 // Modo de criaçao de musica
 void createMode(void)
 {
-	cout << "-> Modo de criacao\n"
-	<< endl;
+	char command;
 
-	// TODO COMPLETAR
+	do {
+		cout << "-> Modo de criacao\n"
+		<< "i - Inserir nova nota\n"
+		<< "v - Ir para o modo de visualizacao\n"
+		<< "s - Salvar musica atual em um arquivo\n"
+		<< "m - Voltar ao menu principal\n"
+		<< endl;
+		cin >> command;
+
+		switch(command) {
+			case 'i':
+			case 'I':
+				insertMode();
+				break;
+			case 'v':
+			case 'V':
+				visualizeMode();
+				break;
+			case 's':
+			case 'S':
+				saveMode();
+				break;
+			case 'm':
+			case 'M':
+				// Volta ao menu principal
+				break;
+			default:
+				cout << "Comando invalido, tente novamente!\n" << endl;
+				break;
+		}
+	} while (command != 'm');
 }
 
-// Usuario escolheu abir um arquivo texto com a musica dele (sequencia de inteiros
+// Usuario escolheu abrir um arquivo texto com a musica dele (sequencia de inteiros
 // representando os intervalos em semitons)
 void openMusicalFile(void)
 {
-	cout << "-> Escreva o nome do arquivo a ser aberto.\n"
-	<< endl;
+	char command;
+	char fileName[40];
 
-	// TODO COMPLETAR
+	do {
+		cout << "-> Escreva o nome do arquivo a ser aberto.\n"
+		cin >> fileName;
+
+		currentM = openFile(fileName);
+
+		if (currentM == NULL) {
+			cout << "Arquivo invalido. Tente novamente.\n" << endl;
+		}
+		else {
+			do {
+				cout << "-> Escolha uma acao para a musica lida do arquivo " << fileName << ".\n"
+				<< "v - Ir para o modo de visualizacao\n"
+				<< "m - Voltar ao menu principal\n"
+				<< endl;
+				cin >> command;
+
+				switch(command) {
+					case 'v':
+					case 'V':
+						visualizeMode();
+						break;
+					case 'm':
+					case 'M':
+						// Volta ao menu principal
+						break;
+					default:
+						cout << "Comando invalido, tente novamente!\n" << endl;
+						break;
+				}
+			}  while (command != 'm');
+		}
+	}  while (command != 'm');
 }
 
 // Janela de fechamento da aplicaçao
