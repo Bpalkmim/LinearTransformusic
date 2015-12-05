@@ -12,23 +12,39 @@ Matrix<Input> * currentM;
 // Abre um arquivo com valores inteiros e cria uma matriz unidimensional considerando-os
 // os intervalos musicais
 Matrix<Input> * openFile(char * fileName) {
-
+	// TODO
 	return NULL;
+}
+
+// Salva a matriz corrente num arquivo
+bool saveFile(char * fileName) {
+
+	// TODO
+	return true;
 }
 
 // Modo de inserçao de notas
 void insertMode(void) {
-
+	// TODO
 }
 
 // Modo de visualizaçao de musica
 void visualizeMode(void) {
-
+	// TODO
 }
 
 // Modo de salvamento de musica em um arquivo
 void saveMode(void) {
+	char fileName[40];
+	cout << "-> Escreva o nome do arquivo a ser salvo:\n" << endl;
+	cin >> fileName;
 
+	if (saveFile(fileName)) {
+		cout << "Salvo com sucesso!\n" << endl;
+	}
+	else {
+		cout << "Problemas ao salvar.\n" << endl;
+	}
 }
 
 // Modo de criaçao de musica
@@ -77,7 +93,7 @@ void openMusicalFile(void)
 	char fileName[40];
 
 	do {
-		cout << "-> Escreva o nome do arquivo a ser aberto.\n"
+		cout << "-> Escreva o nome do arquivo a ser aberto.\n";
 		cin >> fileName;
 
 		currentM = openFile(fileName);
