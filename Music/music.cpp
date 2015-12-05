@@ -15,7 +15,7 @@ Input * makeInput(Input * previous, int interval)
 	Accidental currentAccidental = NATURAL;
 
 	if (previous == NULL) {
-		return new Input(SEMITONE, interval, currentNote, currentAccidental);
+		previous = new Input();
 	}
 
 	switch(interval) {

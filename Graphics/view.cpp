@@ -8,6 +8,8 @@ using namespace std;
 
 // Matriz a ser utilizada pelo modulo. Pode ser criada pelo usuario ou lida de um arquivo.
 Matrix<Input> * currentM;
+Input ** contentM;
+int index = 0;
 
 // Abre um arquivo com valores inteiros e cria uma matriz unidimensional considerando-os
 // os intervalos musicais
@@ -25,7 +27,21 @@ bool saveFile(char * fileName) {
 
 // Modo de inserçao de notas
 void insertMode(void) {
-	// TODO
+	int interval;
+
+	cout << "-> Modo de insercao\n"
+	<< "Insira um valor inteiro:\n"
+	<< endl;
+	cin >> interval;
+
+	if (index == 0) {
+		contentM = new Input*[200]; // Tamanho provisorio
+		contentM[index++] = makeInput(NULL, interval);
+	}
+	else {
+		contentM[index] = makeInput(contentM[index-1], interval);
+		index++;
+	}
 }
 
 // Modo de visualizaçao de musica
