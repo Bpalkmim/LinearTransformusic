@@ -117,27 +117,162 @@ Input * makeInput(Input * previous, int interval)
 			break;
 		case 4:
 		case -8:
+			if (previous->accidental == SHARP) {
+				if (previous->note == F) {
+					currentNote = A;
+					currentAccidental = SHARP;
+				}
+				else {
+					currentNote = (Note) ((previous->note + 3) % 7);
+					currentAccidental = NATURAL;
+				}
+			}
+			else if (previous->accidental == NATURAL) {
+				currentNote = (Note) ((previous->note + 2) % 7);
+				if (previous-> note == C || previous->note == G || previous->note == A) {
+					currentAccidental = previous->accidental;
+				}
+				else {
+					currentAccidental = SHARP;
+				}
+			}
+			else { // previous->accidental == FLAT
+				currentNote = (Note) ((previous->note + 2) % 7);
+				if (previous-> note == G) {
+					currentAccidental = previous->accidental;
+				}
+				else {
+					currentAccidental = NATURAL;
+				}
+			}
 			break;
-		case 5:				// TODO
+		case 5:
 		case -7:
+			if (previous->accidental == SHARP) {
+				currentNote = (Note) ((previous->note + 3) % 7);
+				if (previous->note == F) {
+					currentAccidental = NATURAL;
+				}
+				else {
+					currentAccidental = previous->accidental;
+				}
+			}
+			else if (previous->accidental == NATURAL) {
+				currentNote = (Note) ((previous->note + 3) % 7);
+				if (previous-> note == F) {
+					currentAccidental = FLAT;
+				}
+				else {
+					currentAccidental = previous->accidental;
+				}
+			}
+			else { // previous->accidental == FLAT
+				if (previous-> note == G) {
+					currentNote = B;
+					currentAccidental = NATURAL;
+				}
+				else {
+					currentNote = (Note) ((previous->note + 3) % 7);
+					currentAccidental = previous->accidental;
+				}
+			}
 			break;
 		case 6:
 		case -6:
+			if (previous->accidental == SHARP) {
+				currentNote = (Note) ((previous->note + 4) % 7);
+				currentAccidental = NATURAL;
+			}
+			else if (previous->accidental == NATURAL) {
+				if (previous->note == F) {
+					currentNote = B;
+					currentAccidental = NATURAL;
+				}
+				else if (previous->note == B) {
+					currentNote = F;
+					currentAccidental = NATURAL;
+				}
+				else {
+					currentNote = (Note) ((previous->note + 3) % 7);
+					currentAccidental = SHARP;
+				}
+			}
+			else { // previous->accidental == FLAT
+				currentNote = (Note) ((previous->note + 3) % 7);
+				currentAccidental = NATURAL;
+			}
 			break;
 		case 7:
 		case -5:
+			if (previous->accidental == SHARP) {
+				if (previous->note == A) {
+					currentNote = F;
+					currentAccidental = NATURAL;
+				}
+				else {
+					currentNote = (Note) ((previous->note - 3 + 7) % 7);
+					currentAccidental = previous->accidental;
+				}
+			}
+			else if (previous->accidental == NATURAL) {
+				currentNote = (Note) ((previous->note - 3 + 7) % 7);
+				if (previous-> note == B) {
+					currentAccidental = SHARP;
+				}
+				else {
+					currentAccidental = previous->accidental;
+				}
+			}
+			else { // previous->accidental == FLAT
+				currentNote = (Note) ((previous->note - 3 + 7) % 7);
+				if (previous-> note == B) {
+					currentAccidental = NATURAL;
+				}
+				else {
+					currentAccidental = previous->accidental;
+				}
+			}
 			break;
 		case 8:
 		case -4:
+			if (previous->accidental == SHARP) {
+				currentNote = (Note) ((previous->note - 2 + 7) % 7);
+				if (previous-> note == A) {
+					currentAccidental = previous->accidental;
+				}
+				else {
+					currentAccidental = NATURAL;
+				}
+			}
+			else if (previous->accidental == NATURAL) {
+				currentNote = (Note) ((previous->note - 2 + 7) % 7);
+				if (previous-> note == E || previous->note == A || previous->note == B) {
+					currentAccidental = previous->accidental;
+				}
+				else {
+					currentAccidental = FLAT;
+				}
+			}
+			else { // previous->accidental == FLAT
+				if (previous->note == B) {
+					currentNote = G;
+					currentAccidental = previous->accidental;
+				}
+				else {
+					currentNote = (Note) ((previous->note - 3 + 7) % 7);
+					currentAccidental = NATURAL;
+				}
+			}
 			break;
 		case 9:
 		case -3:
 			if (previous->accidental == SHARP) {
-				currentNote = (Note) ((previous->note + 2) % 7);
-				if (previous->note == D || previous->note == A) {
-					currentAccidental = SHARP;
+				if (previous-> note == C || previous->note == F) {
+					currentNote = (Note) ((previous->note - 2 + 7) % 7);
+					currentAccidental = previous->accidental;
 				}
-				else { // C#, F# ou G#
+				else {
+					currentNote = (Note) ((previous->note - 1 + 7) % 7);
 					currentAccidental = NATURAL;
 				}
 			}
@@ -151,12 +286,11 @@ Input * makeInput(Input * previous, int interval)
 				}
 			}
 			else { // previous->accidental == FLAT
-				if (previous-> note == E || previous->note == B) {
-					currentNote = (Note) ((previous->note + 2) % 7);
-					currentAccidental = previous->accidental;
+				currentNote = (Note) ((previous->note - 2 + 7) % 7);
+				if (previous->note == D || previous->note == G) {
+					currentAccidental = FLAT;
 				}
-				else {
-					currentNote = (Note) ((previous->note + 1) % 7);
+				else { // Eb, Ab ou Bb
 					currentAccidental = NATURAL;
 				}
 			}
