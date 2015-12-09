@@ -2,6 +2,7 @@
 #include "../LinAlgebra/matrix.h"
 #include "../Music/music.h"
 #include <iostream>
+#include <fstream>
 #include <stdlib.h>
 
 using namespace std;
@@ -14,14 +15,51 @@ int index = 0;
 // Abre um arquivo com valores inteiros e cria uma matriz unidimensional considerando-os
 // os intervalos musicais
 Matrix<Input> * openFile(char * fileName) {
-	// TODO
-	return NULL;
+	ifstream iFile;
+
+	iFile.open(fileName);
+	if (!iFile.is_open()) {
+		return NULL;
+	}
+
+	int numRow, numCol;
+	iFile >> numRow;
+	iFile >> numCol;
+
+	contentM = new Input*[numRow];
+	int aux;
+	for (int i = 0; i < numRow; i++) {
+		iFile >> aux;
+		contentM[i] = (i == 0)? makeInput(NULL, aux) : makeInput(contentM[index-1], aux);
+	}
+
+	return new Matrix<Input>(numRow, numCol, contentM);
 }
 
 // Salva a matriz corrente num arquivo
 bool saveFile(char * fileName) {
+	ofstream oFile;
 
-	// TODO
+	if (currentM == NULL) {
+		cout << "Nao existe musica a ser salva.\n" << endl;
+		return false;
+	}
+
+	oFile.open(fileName);
+	if (!oFile.is_open()) {
+		return false;
+	}
+
+	Input ** aux = currentM->getContent();
+	oFile << currentM->getNumRow() << " " << currentM->getNumCol() << endl;
+	for (int i = 0; i < currentM->getNumRow(); i++) {
+		for (int j = 0; j < currentM->getNumCol(); j++) {
+			oFile << aux[i][j].interval << " ";
+		}
+		oFile << "\n";
+	}
+
+	oFile.close();
 	return true;
 }
 
@@ -84,15 +122,18 @@ void createMode(void)
 				break;
 			case 'v':
 			case 'V':
+				currentM = new Matrix<Input>(index + 1, 1, contentM);
 				visualizeMode();
 				break;
 			case 's':
 			case 'S':
+				currentM = new Matrix<Input>(index + 1, 1, contentM);
 				saveMode();
 				break;
 			case 'm':
 			case 'M':
 				// Volta ao menu principal
+				currentM = new Matrix<Input>(index + 1, 1, contentM);
 				break;
 			default:
 				cout << "Comando invalido, tente novamente!\n" << endl;
