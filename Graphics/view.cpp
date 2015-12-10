@@ -28,6 +28,7 @@ Matrix<Input> * openFile(string fileName)
 	iFile >> numCol;
 
 	contentM = new Input*[numRow];
+	index = numRow;
 	int aux;
 	for (int i = 0; i < numRow; i++) {
 		iFile >> aux;
@@ -53,12 +54,11 @@ bool saveFile(string fileName)
 	}
 
 	Input ** aux = currentM->getContent();
-	oFile << currentM->getNumRow() - 1 << " " << currentM->getNumCol() << endl;
-	for (int i = 0; i < currentM->getNumRow() - 1; i++) {
+	oFile << currentM->getNumRow() << " " << currentM->getNumCol() << endl;
+	for (int i = 0; i < currentM->getNumRow(); i++) {
 		for (int j = 0; j < currentM->getNumCol(); j++) {
-			oFile << aux[i][j].interval << " ";
+			oFile << aux[i][j].interval << endl;
 		}
-		oFile << "\n";
 	}
 
 	oFile.close();
@@ -201,20 +201,18 @@ void createMode(void)
 				break;
 			case 'v':
 			case 'V':
-
-				currentM = new Matrix<Input>(index + 1, 1, contentM);
-
+				currentM = new Matrix<Input>(index, 1, contentM);
 				visualizeMode();
 				break;
 			case 's':
 			case 'S':
-				currentM = new Matrix<Input>(index + 1, 1, contentM);
+				currentM = new Matrix<Input>(index, 1, contentM);
 				saveMode();
 				break;
 			case 'm':
 			case 'M':
 				// Volta ao menu principal
-				currentM = new Matrix<Input>(index + 1, 1, contentM);
+				currentM = new Matrix<Input>(index, 1, contentM);
 				break;
 			default:
 				cout << "Comando invalido, tente novamente!\n" << endl;
