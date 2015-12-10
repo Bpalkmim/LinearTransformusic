@@ -31,7 +31,7 @@ Matrix<Input> * openFile(string fileName)
 	int aux;
 	for (int i = 0; i < numRow; i++) {
 		iFile >> aux;
-		contentM[i] = (i == 0)? makeInput(NULL, aux) : makeInput(contentM[index-1], aux);
+		contentM[i] = (i == 0)? makeInput(NULL, aux) : makeInput(contentM[i-1], aux);
 	}
 
 	return new Matrix<Input>(numRow, numCol, contentM);
@@ -96,7 +96,7 @@ void visualizeMode(void)
 	cout << "Sua musica:" << endl;
 
 	for (int i = 0; i < currentM->getNumRow(); i++) {
-		cout << "\t";
+		cout << "\n\t";
 
 		switch(oneDim[i][0].note) {
 			case C:
@@ -153,9 +153,13 @@ void visualizeMode(void)
 			// Os passos na escala devem ser a soma de tons e semitons,
 			// conforme esperado pela transformaçao de intervalo em semi-
 			// tons para semitons + tons.
-			cout << twoDim[i][0].interval + twoDim[i][1].interval << endl;
+			cout << twoDim[i][0].interval + twoDim[i][1].interval;
 		}
+
+		cout << endl;
 	}
+
+	cout << endl;
 }
 
 // Modo de salvamento de musica em um arquivo
@@ -186,7 +190,7 @@ void createMode(void)
 		<< "m - Voltar ao menu principal\n"
 		<< endl;
 		cin >> command;
-cout << "PASSEI";
+
 		switch(command) {
 			case 'i':
 			case 'I':
@@ -194,9 +198,9 @@ cout << "PASSEI";
 				break;
 			case 'v':
 			case 'V':
-cout << "PASSEI";
+
 				currentM = new Matrix<Input>(index + 1, 1, contentM);
-cout << "PASSEI";
+
 				visualizeMode();
 				break;
 			case 's':
@@ -224,11 +228,11 @@ void openMusicalFile(void)
 	string fileName = "";
 
 	do {
-		cout << "-> Escreva o nome do arquivo a ser aberto.\n";
+		cout << "-> Escreva o nome do arquivo a ser aberto." << endl;
 		getline(cin, fileName);
 		currentM = openFile(fileName);
 		if (currentM == NULL) {
-			cout << "Arquivo invalido. Tente novamente.\n" << endl;
+			cout << "Arquivo invalido. Tente novamente." << endl;
 		}
 		else {
 			do {
