@@ -3,6 +3,7 @@
 #include "../Music/music.h"
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <stdlib.h>
 
 using namespace std;
@@ -14,10 +15,10 @@ int index = 0;
 
 // Abre um arquivo com valores inteiros e cria uma matriz unidimensional considerando-os
 // os intervalos musicais
-Matrix<Input> * openFile(char * fileName) {
+Matrix<Input> * openFile(string fileName)
+{
 	ifstream iFile;
-
-	iFile.open(fileName);
+	iFile.open(fileName.c_str());
 	if (!iFile.is_open()) {
 		return NULL;
 	}
@@ -37,7 +38,8 @@ Matrix<Input> * openFile(char * fileName) {
 }
 
 // Salva a matriz corrente num arquivo
-bool saveFile(char * fileName) {
+bool saveFile(string fileName)
+{
 	ofstream oFile;
 
 	if (currentM == NULL) {
@@ -45,7 +47,7 @@ bool saveFile(char * fileName) {
 		return false;
 	}
 
-	oFile.open(fileName);
+	oFile.open(fileName.c_str());
 	if (!oFile.is_open()) {
 		return false;
 	}
@@ -64,7 +66,8 @@ bool saveFile(char * fileName) {
 }
 
 // Modo de inserçao de notas
-void insertMode(void) {
+void insertMode(void)
+{
 	int interval;
 
 	cout << "-> Modo de insercao\n"
@@ -83,15 +86,84 @@ void insertMode(void) {
 }
 
 // Modo de visualizaçao de musica
-void visualizeMode(void) {
-	// TODO
+void visualizeMode(void)
+{
+	Matrix<Input> * temp = oneDimToTwoDim(currentM);
+
+	Input ** twoDim = temp->getContent();
+	Input ** oneDim = currentM->getContent();
+
+	cout << "Sua musica:" << endl;
+
+	for (int i = 0; i < currentM->getNumRow(); i++) {
+		cout << "\t";
+
+		switch(oneDim[i][0].note) {
+			case C:
+			default:
+				cout << "C";
+				break;
+			case D:
+				cout << "D";
+				break;
+			case E:
+				cout << "E";
+				break;
+			case F:
+				cout << "F";
+				break;
+			case G:
+				cout << "G";
+				break;
+			case A:
+				cout << "A";
+				break;
+			case B:
+				cout << "B";
+				break;
+		}
+
+		switch(oneDim[i][0].accidental) {
+			case NATURAL:
+			default:
+				cout << " ";
+				break;
+			case SHARP:
+				cout << "#";
+				break;
+			case FLAT:
+				cout << "b";
+				break;
+		}
+
+		cout << "\t";
+
+		if (i > 0) {
+			cout << "Intervalo: ";
+			if (oneDim[i][0].interval > 0) {
+				cout << "+";
+			}
+			cout << oneDim[i][0].interval;
+			cout << " semitons.\t";
+
+			cout << "Passos: ";
+			if (oneDim[i][0].interval > 0) {
+				cout << "+";
+			}
+			// Os passos na escala devem ser a soma de tons e semitons,
+			// conforme esperado pela transformaçao de intervalo em semi-
+			// tons para semitons + tons.
+			cout << twoDim[i][0].interval + twoDim[i][1].interval << endl;
+		}
+	}
 }
 
 // Modo de salvamento de musica em um arquivo
-void saveMode(void) {
-	char fileName[40];
+void saveMode(void)
+{
+	string fileName = "";
 	cout << "-> Escreva o nome do arquivo a ser salvo:\n" << endl;
-	cin >> fileName;
+	getline(cin, fileName);
 
 	if (saveFile(fileName)) {
 		cout << "Salvo com sucesso!\n" << endl;
@@ -114,7 +186,7 @@ void createMode(void)
 		<< "m - Voltar ao menu principal\n"
 		<< endl;
 		cin >> command;
-
+cout << "PASSEI";
 		switch(command) {
 			case 'i':
 			case 'I':
@@ -122,7 +194,9 @@ void createMode(void)
 				break;
 			case 'v':
 			case 'V':
+cout << "PASSEI";
 				currentM = new Matrix<Input>(index + 1, 1, contentM);
+cout << "PASSEI";
 				visualizeMode();
 				break;
 			case 's':
@@ -147,14 +221,12 @@ void createMode(void)
 void openMusicalFile(void)
 {
 	char command;
-	char fileName[40];
+	string fileName = "";
 
 	do {
 		cout << "-> Escreva o nome do arquivo a ser aberto.\n";
-		cin >> fileName;
-
+		getline(cin, fileName);
 		currentM = openFile(fileName);
-
 		if (currentM == NULL) {
 			cout << "Arquivo invalido. Tente novamente.\n" << endl;
 		}
