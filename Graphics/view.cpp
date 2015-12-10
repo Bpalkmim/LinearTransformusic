@@ -53,8 +53,8 @@ bool saveFile(string fileName)
 	}
 
 	Input ** aux = currentM->getContent();
-	oFile << currentM->getNumRow() << " " << currentM->getNumCol() << endl;
-	for (int i = 0; i < currentM->getNumRow(); i++) {
+	oFile << currentM->getNumRow() - 1 << " " << currentM->getNumCol() << endl;
+	for (int i = 0; i < currentM->getNumRow() - 1; i++) {
 		for (int j = 0; j < currentM->getNumCol(); j++) {
 			oFile << aux[i][j].interval << " ";
 		}
@@ -166,20 +166,23 @@ void visualizeMode(void)
 void saveMode(void)
 {
 	string fileName = "";
-	cout << "-> Escreva o nome do arquivo a ser salvo:\n" << endl;
-	getline(cin, fileName);
+	do {
+		cout << "-> Escreva o nome do arquivo a ser salvo:\n" << endl;
+		getline(cin, fileName);
 
-	if (saveFile(fileName)) {
-		cout << "Salvo com sucesso!\n" << endl;
-	}
-	else {
-		cout << "Problemas ao salvar.\n" << endl;
-	}
+		if (saveFile(fileName)) {
+			cout << "Salvo com sucesso!\n" << endl;
+			break;
+		}
+		else {
+			cout << "Problemas ao salvar.\n" << endl;
+		}
+	} while (true);
 }
 
 // Modo de criaçao de musica
 void createMode(void)
-{
+{	
 	char command;
 
 	do {
